@@ -1,42 +1,38 @@
-async function getWeather(){
+async function getWeather() {
 
-const city=
+const city =
 document.getElementById("city").value;
 
-const apiKey=
-"YOUR_API_KEY";
+const response =
+await fetch(
+`https://wttr.in/${city}?format=j1`
+);
 
-const url=
-`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-const response=
-await fetch(url);
-
-const data=
+const data =
 await response.json();
 
 document.getElementById(
 "weatherResult"
-
-).innerHTML=
+).innerHTML =
 
 `
-<h2>${data.name}</h2>
+<h2>${city}</h2>
 
 <p>
 Temperature:
-${data.main.temp}°C
+${data.current_condition[0].temp_C}°C
 </p>
 
 <p>
 Humidity:
-${data.main.humidity}%
+${data.current_condition[0].humidity}%
 </p>
 
 <p>
 Condition:
-${data.weather[0].main}
+${data.current_condition[0].weatherDesc[0].value}
 </p>
+
 `;
 
 }
